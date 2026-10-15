@@ -33,7 +33,7 @@ def encode_api():
                 download_name='encrypted_stego.png'
             )
         except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 500
+            return jsonify({"success": False, "error": str(e)}), 500
 
 @app.route('/api/decode', methods=['POST'])
 def decode_api():
