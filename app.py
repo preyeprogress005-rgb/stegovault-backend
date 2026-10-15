@@ -4,7 +4,7 @@ import io
 import stego_engine
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/api/encode', methods=['POST'])
 def encode_api():
