@@ -19,14 +19,14 @@ def encode_api():
     if not message or not password:
         return jsonify({"success": False, "error": "Missing fields"}), 400
 
-     try:
+  try:
         img = Image.open(file.stream)
         max_dimensions = (1200, 1200)
         if img.width > 1200 or img.height > 1200:
             img.thumbnail(max_dimensions, Image.Resampling.LANCZOS)
-            img_byte_arr = io.BytesIO()
-            img.save(img_byte_arr, format='PNG')
-            raw_bytes = img_byte_arr.getvalue()
+        img_byte_arr = io.BytesIO()
+        img.save(img_byte_arr, format='PNG')
+        raw_bytes = img_byte_arr.getvalue()
         output_png = stego_engine.encode_image(raw_bytes, message, password)
         return send_file(
             io.BytesIO(output_png),
