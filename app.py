@@ -7,7 +7,7 @@ from PIL import Image
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-@app.route('/encode', methods=['POST'])
+@app.route('/api/encode', methods=['POST'])
 def encode_api():
     if 'image' not in request.files:
         return jsonify({"success": False, "error": "Missing image file"}), 400
@@ -18,7 +18,7 @@ def encode_api():
     if not message or not password:
         return jsonify({"success": False, "error": "Missing fields"}), 400
     try:
-        img = Image.open(file.stream)
+        img = Image.open(file.stream).convert("RGB")
         max_dimensions = (1200, 1200)
         if img.width > 1200 or img.height > 1200:
             img.thumbnail(max_dimensions, Image.Resampling.LANCZOS)
